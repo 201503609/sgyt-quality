@@ -26,7 +26,7 @@ public class UsuarioRS {
     @Autowired
     UsuarioService usuarioService;
     
-    @GetMapping(path = "/todos")
+    @GetMapping(path = "/all")
     public ArrayList<UsuarioModel> obtenerUsuario(){
         return usuarioService.getUsers();
     }

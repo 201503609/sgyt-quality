@@ -10,28 +10,28 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.web.bind.annotation.*;
-import sgyt.com.gt.qualityproject.models.AuthorModel;
-import sgyt.com.gt.qualityproject.services.AuthorService;
+import sgyt.com.gt.qualityproject.models.CategoryModel;
+import sgyt.com.gt.qualityproject.services.CategoryService;
 
 /**
  *
  * @author diego
  */
 @RestController
-@RequestMapping("/author")
-public class AuthorRs {
+@RequestMapping("/category")
+public class CategoryRS {
 
     @Autowired
-    AuthorService authSvc;
+    CategoryService categorySvc;
 
     @GetMapping("/all")
-    public Page<AuthorModel> getAllAuthors(Pageable pgbl) {
-        return authSvc.getAllAuthors(pgbl);
+    public Page<CategoryModel> getAllCategories(Pageable pgbl) {
+        return categorySvc.getAllCategories(pgbl);
     }
 
     @PostMapping("/save")
-    public AuthorModel saveAuthor(@RequestBody AuthorModel auth) {
-        return authSvc.saveAuthor(auth);
+    public CategoryModel saveCategory(@RequestBody CategoryModel cate) {
+        return categorySvc.saveCategory(cate);
     }
 
 }

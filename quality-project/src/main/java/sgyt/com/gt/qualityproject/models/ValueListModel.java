@@ -29,7 +29,7 @@ public class ValueListModel {
     @JoinColumn(name = "category", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
-    private AuthorModel category;
+    private CategoryModel category;
 
     private String key_;
     private String description;
@@ -42,11 +42,11 @@ public class ValueListModel {
         this.dbid = dbid;
     }
 
-    public AuthorModel getCategory() {
+    public CategoryModel getCategory() {
         return category;
     }
 
-    public void setCategory(AuthorModel category) {
+    public void setCategory(CategoryModel category) {
         this.category = category;
     }
 

@@ -10,6 +10,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
+import sgyt.com.gt.qualityproject.exception.ResourceNotFoundException;
 import sgyt.com.gt.qualityproject.models.AuthorModel;
 import sgyt.com.gt.qualityproject.models.BookDetailModel;
 import sgyt.com.gt.qualityproject.models.BookModel;
@@ -32,9 +33,11 @@ public class BookService {
     BookRepository bookRepo;
     @Autowired
     ValueListRepository vlRepo;
-
+   
     @Autowired
     BookDetailService bookDetaSvc;
+    
+    private static String ERROR_AUTHOR = "El autor ingresado no existe en la db";
 
     public Page<BookModel> getAllBooksByAuthor(Long authDbid, Pageable pgbl) {
         return bookRepo.findByAuthorDbid(authDbid, pgbl);
@@ -54,8 +57,8 @@ public class BookService {
         return result;
     }
 
-    private void saveBookDetails(Long cateDbid, BookModel book) {
-        ArrayList<ValueListModel> listVL = vlRepo.findListByCategoryDbid(cateDbid);
+    private void saveBookDetails(Long categoryDbid, BookModel book) {
+        ArrayList<ValueListModel> listVL = vlRepo.findListByCategoryDbid(categoryDbid);
         for (ValueListModel vl : listVL) {
             BookDetailModel tmpDetail = new BookDetailModel(vl.getKey_(), "-");
             bookDetaSvc.saveBookDetail(book.getDbid(), tmpDetail);

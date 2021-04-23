@@ -6,11 +6,9 @@
 package sgyt.com.gt.qualityproject.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.util.Date;
 import javax.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.springframework.data.annotation.CreatedDate;
 
 /**
  *
@@ -30,8 +28,8 @@ public class BookDetailModel {
     @JsonIgnore
     private BookModel book;
 
-    private String key;
-    private String value;
+    private String key_;
+    private String value_;
 
     public Long getDbid() {
         return dbid;
@@ -50,19 +48,19 @@ public class BookDetailModel {
     }
 
     public String getKey() {
-        return key;
+        return key_;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setKey(String key_) {
+        this.key_ = key_;
     }
 
     public String getValue() {
-        return value;
+        return value_;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setValue(String value_) {
+        this.value_ = value_;
     }
 
 }

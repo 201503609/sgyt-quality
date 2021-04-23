@@ -40,6 +40,10 @@ public class BookService {
     private static String ERROR_AUTHOR = "El autor ingresado no existe en la db";
 
     public Page<BookModel> getAllBooksByAuthor(Long authDbid, Pageable pgbl) {
+        
+        /*if(!authRepo.existsById(authDbid)){ exception handlers
+           throw new ResourceNotFoundException(ERROR_AUTHOR);
+        }*/
         return bookRepo.findByAuthorDbid(authDbid, pgbl);
     }
 

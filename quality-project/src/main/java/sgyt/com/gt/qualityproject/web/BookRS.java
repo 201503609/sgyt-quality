@@ -18,7 +18,7 @@ import sgyt.com.gt.qualityproject.services.BookService;
  * @author diego
  */
 @RestController
-@RequestMapping("/book")
+@RequestMapping("/book") //books
 public class BookRS {
 
     @Autowired

@@ -18,18 +18,18 @@ import sgyt.com.gt.qualityproject.services.AuthorService;
  * @author diego
  */
 @RestController
-@RequestMapping("/author")
+@RequestMapping("/author")//plural
 public class AuthorRs {
 
     @Autowired
     AuthorService authSvc;
 
-    @GetMapping("/all")
+    @GetMapping() //desaparecer verbos //manejar mejor el pagineo
     public Page<AuthorModel> getAllAuthors(Pageable pgbl) {
         return authSvc.getAllAuthors(pgbl);
     }
 
-    @PostMapping("/save")
+    @PostMapping() //idempotencia estudiarlo...
     public AuthorModel saveAuthor(@RequestBody AuthorModel auth) {
         return authSvc.saveAuthor(auth);
     }

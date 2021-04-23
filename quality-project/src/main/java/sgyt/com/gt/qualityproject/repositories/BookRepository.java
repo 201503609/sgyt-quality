@@ -22,4 +22,8 @@ public interface BookRepository extends JpaRepository<BookModel, Long> {
     Page<BookModel> findByAuthorDbid(Long authorDbid, Pageable pgbl);
 
     Optional<BookModel> findByDbidAndAuthorDbid(Long id, Long idAuth);
+    
+    Page<BookModel> findByCategoryDbid(Long cateDbid, Pageable pgbl);
+
+    Optional<BookModel> findByDbidAndCategoryDbid(Long id, Long cateDbid);
 }

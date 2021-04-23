@@ -31,6 +31,18 @@ public class BookDetailModel {
     private String key_;
     private String value_;
 
+    public BookDetailModel() {
+    }
+
+    public BookDetailModel(Long dbid) {
+        this.dbid = dbid;
+    }
+
+    public BookDetailModel(String key_, String value) {
+        this.key_ = key_;
+        this.value_ = value;
+    }
+
     public Long getDbid() {
         return dbid;
     }

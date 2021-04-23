@@ -37,7 +37,11 @@ public class BookModel {
     @CreatedDate
     private Date publishDate;
 
-    private String category;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "category", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private CategoryModel category;
 
     public Long getDbid() {
         return dbid;
@@ -71,11 +75,11 @@ public class BookModel {
         this.publishDate = publishDate;
     }
 
-    public String getCategory() {
+    public CategoryModel getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(CategoryModel category) {
         this.category = category;
     }
 

@@ -5,14 +5,17 @@
  */
 package sgyt.com.gt.qualityproject.services;
 
+import java.util.ArrayList;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import sgyt.com.gt.qualityproject.models.AuthorModel;
+import sgyt.com.gt.qualityproject.models.BookDetailModel;
 import sgyt.com.gt.qualityproject.models.BookModel;
-import sgyt.com.gt.qualityproject.repositories.AuthorRepository;
-import sgyt.com.gt.qualityproject.repositories.BookRepository;
+import sgyt.com.gt.qualityproject.models.CategoryModel;
+import sgyt.com.gt.qualityproject.models.ValueListModel;
+import sgyt.com.gt.qualityproject.repositories.*;
 
 /**
  *
@@ -23,17 +26,39 @@ public class BookService {
 
     @Autowired
     AuthorRepository authRepo;
-
+    @Autowired
+    CategoryRepository cateRepo;
     @Autowired
     BookRepository bookRepo;
+    @Autowired
+    ValueListRepository vlRepo;
+
+    @Autowired
+    BookDetailService bookDetaSvc;
 
     public Page<BookModel> getAllBooksByAuthor(Long authDbid, Pageable pgbl) {
         return bookRepo.findByAuthorDbid(authDbid, pgbl);
     }
 
-    public BookModel saveBook(Long authDbid, BookModel book) {
+    public Page<BookModel> getAllBooksByCategory(Long cateDbid, Pageable pgbl) {
+        return bookRepo.findByCategoryDbid(cateDbid, pgbl);
+    }
+
+    public BookModel saveBook(Long authDbid, Long cateDbid, BookModel book) {
         Optional<AuthorModel> tmpAuthor = authRepo.findById(authDbid);
+        Optional<CategoryModel> tmpCate = cateRepo.findById(cateDbid);
         book.setAuthor(tmpAuthor.get());
-        return bookRepo.save(book);
+        book.setCategory(tmpCate.get());
+        BookModel result = bookRepo.save(book);
+        saveBookDetails(cateDbid, result);
+        return result;
+    }
+
+    private void saveBookDetails(Long cateDbid, BookModel book) {
+        ArrayList<ValueListModel> listVL = vlRepo.findListByCategoryDbid(cateDbid);
+        for (ValueListModel vl : listVL) {
+            BookDetailModel tmpDetail = new BookDetailModel(vl.getKey_(), "-");
+            bookDetaSvc.saveBookDetail(book.getDbid(), tmpDetail);
+        }
     }
 }

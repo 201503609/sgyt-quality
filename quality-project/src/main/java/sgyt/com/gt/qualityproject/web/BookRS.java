@@ -29,9 +29,16 @@ public class BookRS {
         return bookSvc.getAllBooksByAuthor(authorDbid, pgbl);
     }
 
-    @PostMapping("/author/{author}")
-    public BookModel saveBook(@PathVariable(value = "author") Long authorDbid, @RequestBody BookModel book) {
-        return bookSvc.saveBook(authorDbid, book);
+    @GetMapping("/category/{category}")
+    public Page<BookModel> getAllBooksByCategory(@PathVariable(value = "category") Long cateDbid, Pageable pgbl) {
+        return bookSvc.getAllBooksByCategory(cateDbid, pgbl);
+    }
+
+    @PostMapping("/author/{author}/category/{category}")
+    public BookModel saveBook(@PathVariable(value = "author") Long authorDbid,
+            @PathVariable(value = "category") Long cateDbid,
+            @RequestBody BookModel book) {
+        return bookSvc.saveBook(authorDbid, cateDbid, book);
     }
 
 }
